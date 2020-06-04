@@ -30295,24 +30295,8 @@ function createMemoryHistory(props) {
   };
   return history;
 }
-},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","resolve-pathname":"../node_modules/resolve-pathname/esm/resolve-pathname.js","value-equal":"../node_modules/value-equal/esm/value-equal.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/@babel/runtime/helpers/inheritsLoose.js":[function(require,module,exports) {
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
-}
-
-module.exports = _inheritsLoose;
-},{}],"../node_modules/gud/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/esm/extends":"../node_modules/@babel/runtime/helpers/esm/extends.js","resolve-pathname":"../node_modules/resolve-pathname/esm/resolve-pathname.js","value-equal":"../node_modules/value-equal/esm/value-equal.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js","tiny-invariant":"../node_modules/tiny-invariant/dist/tiny-invariant.esm.js"}],"../node_modules/mini-create-react-context/dist/esm/index.js":[function(require,module,exports) {
 var global = arguments[3];
-'use strict';
-
-var key = '__global_unique_id__';
-
-module.exports = function () {
-  return global[key] = (global[key] || 0) + 1;
-};
-},{}],"../node_modules/mini-create-react-context/dist/esm/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30322,11 +30306,9 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/inheritsLoose"));
+var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
-
-var _gud = _interopRequireDefault(require("gud"));
 
 var _tinyWarning = _interopRequireDefault(require("tiny-warning"));
 
@@ -30337,6 +30319,12 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var MAX_SIGNED_31_BIT_INT = 1073741823;
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : {};
+
+function getUniqueId() {
+  var key = '__global_unique_id__';
+  return commonjsGlobal[key] = (commonjsGlobal[key] || 0) + 1;
+}
 
 function objectIs(x, y) {
   if (x === y) {
@@ -30376,7 +30364,7 @@ function onlyChild(children) {
 function createReactContext(defaultValue, calculateChangedBits) {
   var _Provider$childContex, _Consumer$contextType;
 
-  var contextProp = '__create-react-context-' + (0, _gud.default)() + '__';
+  var contextProp = '__create-react-context-' + getUniqueId() + '__';
 
   var Provider =
   /*#__PURE__*/
@@ -30505,7 +30493,7 @@ function createReactContext(defaultValue, calculateChangedBits) {
 var index = _react.default.createContext || createReactContext;
 var _default = index;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@babel/runtime/helpers/inheritsLoose":"../node_modules/@babel/runtime/helpers/inheritsLoose.js","prop-types":"../node_modules/prop-types/index.js","gud":"../node_modules/gud/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js"}],"../node_modules/path-to-regexp/node_modules/isarray/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@babel/runtime/helpers/esm/inheritsLoose":"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js","prop-types":"../node_modules/prop-types/index.js","tiny-warning":"../node_modules/tiny-warning/dist/tiny-warning.esm.js"}],"../node_modules/path-to-regexp/node_modules/isarray/index.js":[function(require,module,exports) {
 module.exports = Array.isArray || function (arr) {
   return Object.prototype.toString.call(arr) == '[object Array]';
 };
@@ -31081,7 +31069,7 @@ exports.useLocation = useLocation;
 exports.useParams = useParams;
 exports.useRouteMatch = useRouteMatch;
 exports.withRouter = withRouter;
-exports.__RouterContext = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.MemoryRouter = void 0;
+exports.__RouterContext = exports.__HistoryContext = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.MemoryRouter = void 0;
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
 
@@ -31116,9 +31104,21 @@ var createNamedContext = function createNamedContext(name) {
   return context;
 };
 
+var historyContext =
+/*#__PURE__*/
+createNamedContext("Router-History"); // TODO: Replace with React.createContext once we can assume React 16+
+
+exports.__HistoryContext = historyContext;
+
+var createNamedContext$1 = function createNamedContext(name) {
+  var context = (0, _miniCreateReactContext.default)();
+  context.displayName = name;
+  return context;
+};
+
 var context =
 /*#__PURE__*/
-createNamedContext("Router");
+createNamedContext$1("Router");
 /**
  * The public API for putting history on context.
  */
@@ -31187,14 +31187,16 @@ function (_React$Component) {
 
   _proto.render = function render() {
     return _react.default.createElement(context.Provider, {
-      children: this.props.children || null,
       value: {
         history: this.props.history,
         location: this.state.location,
         match: Router.computeRootMatch(this.state.location.pathname),
         staticContext: this.props.staticContext
       }
-    });
+    }, _react.default.createElement(historyContext.Provider, {
+      children: this.props.children || null,
+      value: this.props.history
+    }));
   };
 
   return Router;
@@ -31811,7 +31813,7 @@ function useHistory() {
     !(typeof useContext === "function") ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You must use React >= 16.8 in order to use useHistory()") : (0, _tinyInvariant.default)(false) : void 0;
   }
 
-  return useContext(context).history;
+  return useContext(historyContext);
 }
 
 function useLocation() {
@@ -31836,7 +31838,9 @@ function useRouteMatch(path) {
     !(typeof useContext === "function") ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You must use React >= 16.8 in order to use useRouteMatch()") : (0, _tinyInvariant.default)(false) : void 0;
   }
 
-  return path ? matchPath(useLocation().pathname, path) : useContext(context).match;
+  var location = useLocation();
+  var match = useContext(context).match;
+  return path ? matchPath(location.pathname, path) : match;
 }
 
 if ("development" !== "production") {
@@ -31866,26 +31870,93 @@ if ("development" !== "production") {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var _exportNames = {
-  BrowserRouter: true,
-  HashRouter: true,
-  Link: true,
-  NavLink: true
-};
+Object.defineProperty(exports, "MemoryRouter", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.MemoryRouter;
+  }
+});
+Object.defineProperty(exports, "Prompt", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.Prompt;
+  }
+});
+Object.defineProperty(exports, "Redirect", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.Redirect;
+  }
+});
+Object.defineProperty(exports, "Route", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.Route;
+  }
+});
+Object.defineProperty(exports, "Router", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.Router;
+  }
+});
+Object.defineProperty(exports, "StaticRouter", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.StaticRouter;
+  }
+});
+Object.defineProperty(exports, "Switch", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.Switch;
+  }
+});
+Object.defineProperty(exports, "generatePath", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.generatePath;
+  }
+});
+Object.defineProperty(exports, "matchPath", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.matchPath;
+  }
+});
+Object.defineProperty(exports, "useHistory", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.useHistory;
+  }
+});
+Object.defineProperty(exports, "useLocation", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.useLocation;
+  }
+});
+Object.defineProperty(exports, "useParams", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.useParams;
+  }
+});
+Object.defineProperty(exports, "useRouteMatch", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.useRouteMatch;
+  }
+});
+Object.defineProperty(exports, "withRouter", {
+  enumerable: true,
+  get: function () {
+    return _reactRouter.withRouter;
+  }
+});
 exports.NavLink = exports.Link = exports.HashRouter = exports.BrowserRouter = void 0;
 
 var _reactRouter = require("react-router");
-
-Object.keys(_reactRouter).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _reactRouter[key];
-    }
-  });
-});
 
 var _inheritsLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/esm/inheritsLoose"));
 
@@ -32054,6 +32125,8 @@ var LinkAnchor = forwardRef(function (_ref, forwardedRef) {
   } else {
     props.ref = innerRef;
   }
+  /* eslint-disable-next-line jsx-a11y/anchor-has-content */
+
 
   return _react.default.createElement("a", props);
 });
@@ -32149,11 +32222,12 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
       exact = _ref.exact,
       isActiveProp = _ref.isActive,
       locationProp = _ref.location,
+      sensitive = _ref.sensitive,
       strict = _ref.strict,
       styleProp = _ref.style,
       to = _ref.to,
       innerRef = _ref.innerRef,
-      rest = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "strict", "style", "to", "innerRef"]);
+      rest = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["aria-current", "activeClassName", "activeStyle", "className", "exact", "isActive", "location", "sensitive", "strict", "style", "to", "innerRef"]);
   return _react.default.createElement(_reactRouter.__RouterContext.Consumer, null, function (context) {
     !context ? "development" !== "production" ? (0, _tinyInvariant.default)(false, "You should not use <NavLink> outside a <Router>") : (0, _tinyInvariant.default)(false) : void 0;
     var currentLocation = locationProp || context.location;
@@ -32164,6 +32238,7 @@ var NavLink = forwardRef$1(function (_ref, forwardedRef) {
     var match = escapedPath ? (0, _reactRouter.matchPath)(currentLocation.pathname, {
       path: escapedPath,
       exact: exact,
+      sensitive: sensitive,
       strict: strict
     }) : null;
     var isActive = !!(isActiveProp ? isActiveProp(match, currentLocation) : match);
@@ -32200,6 +32275,7 @@ if ("development" !== "production") {
     exact: _propTypes.default.bool,
     isActive: _propTypes.default.func,
     location: _propTypes.default.object,
+    sensitive: _propTypes.default.bool,
     strict: _propTypes.default.bool,
     style: _propTypes.default.object
   });
@@ -33351,7 +33427,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54221" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62815" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
