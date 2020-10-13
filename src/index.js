@@ -6,6 +6,7 @@ import App from "./components/App";
 import Jokes from "./components/Jokes";
 import Header from "./components/Header";
 import MusicMaster from "./projects/music-master";
+import EvenOrOdd from "./projects/even-or-odd";
 import "./index.css";
 
 
@@ -16,6 +17,7 @@ ReactDOM.render(
             <Route exact path="/" render={() => <Header><App /></Header>} />
             <Route path="/jokes" render={() => <Header><Jokes /></Header>} />
             <Route path="/music-master" render={() => <Header><MusicMaster /></Header>} />
+            <Route path="/even-or-odd" render={() => <Header><EvenOrOdd /></Header>} />
         </Switch>
     </Router>,
     document.getElementById("root")
